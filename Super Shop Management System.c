@@ -274,7 +274,7 @@ void reorderProduct() {
     system("pause");
     adminMenu(); // Call the admin menu function (replace with your function's name if different)
 }
-
+// -----------------------------------------------ANAS-----------------------------------------------
 void saveProduct(struct Product p) {
     FILE *file = fopen(PRODUCTS_FILE, "a");
     if (file == NULL) {
@@ -406,7 +406,6 @@ void registerUser() {
     system("pause");
 }
 
-
 void searchProducts() {
     clrscr();
     char keyword[50];
@@ -445,6 +444,8 @@ void searchProducts() {
     fclose(file);
     system("pause");
 }
+
+// -----------------------------------------------SHEMU-----------------------------------------------
 
 void manageCart() {
     int choice;
@@ -550,7 +551,6 @@ void addToCart() {
     }
 }
 
-
 void removeFromCart() {
     clrscr();
     int productId;
@@ -631,7 +631,6 @@ void viewCart() {
     printf("\n-----------------------------------\n");
     system("pause");
 }
-
 
 void completePurchase() {
     clrscr();
