@@ -71,10 +71,10 @@ int main() {
                 userMenu();
                 break;
             case 3:
-                printf("Thank you for using the system!\n");
+                printf("\n\nThank you for using the system!\n");
                 exit(0);
             default:
-                printf("Invalid choice!\n");
+                printf("\n\nInvalid choice!\n");
         }
     }
     return 0;
@@ -114,12 +114,13 @@ void adminMenu() {
                 viewProducts();
                 break;
             case 5:
-                return;
+                return; // Properly exit the admin menu
             default:
                 printf("Invalid choice!\n");
         }
     }
 }
+
 
 void addProduct() {
     clrscr();
@@ -128,19 +129,48 @@ void addProduct() {
 
     do {
         printf("-------------Add Product-------------\n\n");
-        printf("Enter Product ID: ");
-        scanf("%d", &p.id);
+
+        // Validate Product ID input
+        while (1) {
+            printf("Enter Product ID (number only): ");
+            if (scanf("%d", &p.id) == 1) {
+                break; // Valid input
+            } else {
+                printf("Invalid input! Please enter a valid number.\n");
+                while (getchar() != '\n'); // Clear the invalid input
+            }
+        }
+
+        // Validate Product Name input
         printf("Enter Product Name: ");
         scanf("%s", p.name);
-        printf("Enter Product Price: ");
-        scanf("%f", &p.price);
-        printf("Enter Product Stock: ");
-        scanf("%d", &p.stock);
+
+        // Validate Product Price input
+        while (1) {
+            printf("Enter Product Price: ");
+            if (scanf("%f", &p.price) == 1) {
+                break; // Valid input
+            } else {
+                printf("Invalid input! Please enter a valid number.\n");
+                while (getchar() != '\n'); // Clear the invalid input
+            }
+        }
+
+        // Validate Product Stock input
+        while (1) {
+            printf("Enter Product Stock: ");
+            if (scanf("%d", &p.stock) == 1) {
+                break; // Valid input
+            } else {
+                printf("Invalid input! Please enter a valid number.\n");
+                while (getchar() != '\n'); // Clear the invalid input
+            }
+        }
 
         saveProduct(p);
         printf("Product added successfully!\n");
 
-        printf("\nDo you want to add more products?\n\n1.Yes, 2.No\nPress 1 or 2 : ");
+        printf("\nDo you want to add more products?\n\n1. Yes\n2. No\nPress 1 or 2: ");
         scanf("%d", &addMore);
         clrscr();
 
@@ -149,15 +179,27 @@ void addProduct() {
     printf("\nReturning to Admin Menu...\n");
     system("pause");
 }
+
 void editProduct() {
     int continueEditing = 1; // Variable to control the loop
 
     do {
         clrscr();
         int productId;
+
         printf("-------------Edit Product-------------\n\n");
-        printf("Enter Product ID to edit: ");
-        scanf("%d", &productId);
+        
+        // Validate input for Product ID
+        while (1) {
+            printf("Enter Product ID to edit (numbers only): ");
+            if (scanf("%d", &productId) == 1) {
+                break; // Input is valid, exit the loop
+            } else {
+                printf("Invalid input! Please enter a numeric value.\n");
+                // Clear the input buffer
+                while (getchar() != '\n');
+            }
+        }
 
         FILE *file = fopen(PRODUCTS_FILE, "r");
         FILE *tempFile = fopen("temp.txt", "w");
@@ -215,6 +257,7 @@ void editProduct() {
 }
 
 
+
 void reorderProduct() {
     int continueReordering = 1; // Variable to control the loop
 
@@ -269,11 +312,10 @@ void reorderProduct() {
 
     } while (continueReordering == 1);
 
-    // Redirect to admin menu
     printf("\nReturning to Admin Menu...\n");
     system("pause");
-    adminMenu(); // Call the admin menu function (replace with your function's name if different)
 }
+
 // -----------------------------------------------ANAS-----------------------------------------------
 void saveProduct(struct Product p) {
     FILE *file = fopen(PRODUCTS_FILE, "a");
@@ -312,9 +354,9 @@ void updateProduct(struct Product p) {
 void viewProducts() {
     clrscr();
 
-    // Check registration only for the end-user, not the admin
+    // Enforce registration only for user, not admin
     if (!isRegistered && !isAdmin) {
-        printf("Without registering, you can't see products.\n");
+        printf("Access denied! You must register and log in to view products.\n");
         system("pause");
         return;
     }
@@ -343,6 +385,7 @@ void viewProducts() {
 }
 
 
+
 // User Functions
 void userMenu() {
     int choice;
@@ -363,16 +406,16 @@ void userMenu() {
                 registerUser();
                 break;
             case 2:
-                viewProducts();
+                viewProducts();  // Requires registration
                 break;
             case 3:
-                searchProducts();
+                searchProducts();  // Requires registration
                 break;
             case 4:
-                manageCart();
+                manageCart();  // Requires registration
                 break;
             case 5:
-                completePurchase();
+                completePurchase();  // Requires registration
                 break;
             case 6:
                 return;
