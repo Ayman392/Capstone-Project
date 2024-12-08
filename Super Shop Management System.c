@@ -114,13 +114,13 @@ void adminMenu() {
                 viewProducts();
                 break;
             case 5:
-                return; // Properly exit the admin menu
+                isAdmin = 0; // Reset admin flag
+                return;
             default:
                 printf("Invalid choice!\n");
         }
     }
 }
-
 
 void addProduct() {
     clrscr();
@@ -418,6 +418,7 @@ void userMenu() {
                 completePurchase();  // Requires registration
                 break;
             case 6:
+                isRegistered = 0; // Reset registration flag
                 return;
             default:
                 printf("Invalid choice!\n");
