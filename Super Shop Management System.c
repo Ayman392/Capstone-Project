@@ -731,5 +731,9 @@ void completePurchase() {
         cartSize = 0;
         printf("Purchase completed successfully!\n");
     }
+
     system("pause");
+
+    // Return to User Menu after purchase is complete
+    userMenu();
 }
